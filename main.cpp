@@ -85,24 +85,20 @@ unsigned int testColonne(vector<vector<char>> & tab)
     }
 }
 
-unsigned int testDiago(vector<vector<char>> & tab)
+unsigned int testDiago(vector<vector<char>> &tab)
 {
-    if (((tab[0][0] == tab[1][1]) && (tab[0][0] == tab[2][2])) || ((tab[0][2] == tab[1][1]) &&  (tab[0][2]== tab[2][0])))
+    if ((tab[1][1] == 'o' && ((tab[0][0] == 'o' && tab[2][2] == 'o') || (tab[0][2] == 'o' && tab[2][0] == 'o'))) || (tab[1][1] == 'x' && ((tab[0][0] == 'x' && tab[2][2] == 'x') || (tab[0][2] == 'x' && tab[2][0] == 'x'))))
     {
-        if(tab[0][0] == 'o'|| tab[0][2] == 'o')
+        if (tab[1][1] == 'o')
         {
             return 1;
         }
-        else if(tab[0][0] == 'x'|| tab[0][2] == 'x')
+        else if (tab[1][1] == 'x')
         {
             return 2;
         }
     }
-    else
-    {
-        return 0;
-    }
-
+    return 0;
 }
 unsigned int gagne(vector<vector<char>> tab)
 {
@@ -161,7 +157,7 @@ void jouer(vector<vector<char>> tab)
 {
     unsigned int l,c;
     bool j1=true,j2=false,n;
-    while(gagne(tab) == 0)
+    while(gagne(tab) == 0 && isrempli(tab) == false)
     {
         cout << "entrez la colonne souhaité" << endl;
         cin >> c;
@@ -185,22 +181,21 @@ void jouer(vector<vector<char>> tab)
             tab[l][c] = 'x';
         }
         affiche(tab);
-        if ( isrempli(tab) == true)
-        {
-            cout << "égalité";
-            break;
-        }
         n = j1;
         j1 = j2;
         j2=n;
     }
-    if(gagne(tab) == 1)
+    if(gagne(tab) == 1 )
     {
         cout << "le joueur 1 a gagné !" << endl;
     }
     else if(gagne(tab) == 2)
     {
         cout << "le joueur 2 a gagné ! " << endl;
+    }
+    else
+    {
+        cout << "égalité !" << endl;
     }
 }
 
